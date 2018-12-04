@@ -1,0 +1,30 @@
+Flask与HTTP
+
+1.Request对象
+    request对象封装类从客户端发来的请求报文，能从它获取报文中的所有数据。request对象提供多个属性来获取URL的各个部分。
+除了URL，请求报文中的其他信息都可以通过request对象提供的属性和方法获取。
+
+2.Flask请求处理
+    URL是指向网络上资源的地址，在Flask中，我们需要让请求的URL匹配对应的视图函数，视图函数返回值就是URL对应的资源。 
+    处理请求首先是路由匹配，请求报文中的URL与路由表里面的URL匹配，则调用匹配成功的视图函数，否则返回错误响应。
+    设置监听HTTP方法，当某个请求的方法不符合要求时，请求将无法被正常处理。
+    URL处理，URL规则还总的变量部分，可以通过Flask提供的转换器通过特定的规则转换变量，常用的转换器有：string/int/
+float/path/any/uuid.
+    请求钩子：在需要对请求预处理和后处理时，可以使用Flask提供的请求钩子注册请求处理的不同执行的处理函数（Callback）
+
+3.HTTP响应
+    响应在Flask中使用Respone对象表示，视图函数的返回值构成响应报文的主题内容，正确返回状态码默认为200.Flask会调用
+make_respone()方法将视图函数返回值转换为响应对象。
+    响应格式，在HTTP响应中，数据通过多种格式传输，Flask默认情况下使用HTML格式，常用的数据格式有纯文本/HTML/XML/JSON。
+通过make_respone()方法生成响应对象，传入响应主体作为参数，然后使用响应对象的mimetype属性设置MIME类型。
+
+4.Cookie
+    Cookie技术通过在请求和响应报文中添加Cookie数据来保存客户端的信息。在Flask中添加Cookie最方便的方法是使用Respone类
+提供的set_cookie()方法。
+    set_cookie方法支持多个参数来设置cookie的选项。当浏览器保存了服务器设置的cookie后，浏览器再次发送到服务器的请求会自
+动携带设置的Cookie信息，Cookie的内容存储在请求首部的Cookie字段中。
+
+5.session：安全的Cookie
+    flask提供session对象将Cookie数据加密储存。session通过密钥对数据进行签名以加密数据。
+
+
