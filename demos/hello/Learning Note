@@ -1,0 +1,33 @@
+一 初识flask
+1.创建程序实例
+    安装flask时，它会在python解释器中创建一个flask包，通过flask包的构造文件导入所有开放的类和函数
+	import click
+	from flask import Flask
+	app = Flask(__name__)
+    传入Flask类构造方法的第一个参数是模块或包的名菜，我们使用特殊变量__name__.
+2.注册路由
+    建立处理请求的函数，为其定义对应的URL规则。只需为函数附加app.route()装饰器，并传入URL规则作为
+参数，就可以让URL与函数建立关联。这个过程称为注册路由（route），路由负责管理URL和函数之间的映射，
+这个函数称为试图函数（view funtion)
+	@app.route('/')
+	def index():
+    	    return "<h1>Hello Flask</h1>"
+    视图函数可以绑定多个URL，还可以在URL规则中添加变量部分，使用“<变量名>”的形式表示。
+	@app.route('/greet')
+	@app.route('/greet/<name>')
+	def greet(name = 'Programmer'):
+            return '<h1>Hello, %s!</h1>'%name
+3.启动开发服务器
+    flask run命令用来启动内置的开发服务器。
+    flask run命令运行程序前，需要提供程序实例所在的模块位置，flask会在当前目录寻找app.py或wsgi.py
+模块;从环境变量FLASK_APP对应的值寻找名为app或application的程序实例。
+    可以使用python-dotevn管理环境变量。
+    Flask加载环境变量的优先级是：手动设置的环境变量>.env中设置的环境变量>.flaskenvs设置的环境变量。
+4.flask扩展
+    flask扩展提供扩展类，实例化这个类，并传入创建的程序实例app作为参数，即可完成初始化过程。
+	from flask import Flask
+	from flask-foo import foo
+	app = Flsak(__name__)
+	foo = foo(app)
+5.项目配置
+    在一个项目中，用到许多配置：Flask提供的配置扩展提供的配置，还有程序特定的配置。
